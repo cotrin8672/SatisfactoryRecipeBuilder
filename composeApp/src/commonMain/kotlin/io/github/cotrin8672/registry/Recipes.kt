@@ -1,6 +1,6 @@
 package io.github.cotrin8672.registry
 
-import io.github.cotrin8672.domain.*
+import io.github.cotrin8672.domain.satisfactory.*
 
 object Recipes {
     private val basicRecipe = mutableMapOf<Item, BasicRecipe>()
@@ -13,7 +13,11 @@ object Recipes {
         output: ItemStack,
         byProduct: ItemStack = ItemStack.EMPTY,
         machine: Machine,
-    ) = BasicRecipe(name, input, output, byProduct, machine)
+    ): BasicRecipe {
+        val recipe = BasicRecipe(name, input, output, byProduct, machine)
+        basicRecipe[output.item] = recipe
+        return recipe
+    }
 
     private fun alt(
         name: String,
@@ -251,7 +255,7 @@ object Recipes {
     )
 
     val steelPipe = basic(
-        name = "", // TODO: 日本語名を設定
+        name = "鋼管",
         input = listOf(
             ItemStack(Items.steelIngot, 30)
         ),
@@ -1184,7 +1188,7 @@ object Recipes {
     val biochemicalSculptor = basic(
         name = "",
         input = listOf(
-            ItemStack(Items.assemblyDirectorSystem, 0.5),
+            ItemStack(Items.assemblyDirectorSystem, 0.5f),
             ItemStack(Items.ficsiteTrigon, 40),
             ItemStack(Items.water, 10),
         ),
